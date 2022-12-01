@@ -77,19 +77,51 @@ int printLargest(treeNode<int> *root)
     return largest;
 }
 
-int heightReturner(treeNode<int> *root)
+int heightReturner(treeNode<int> *root) // more optimised
 {
-    int height = 1;
-    if (root->children.size() == 0)
-        return height;
+    treeNode<int> *temp = root;
+    if (temp == NULL)
+    {
+        return 0;
+    }
+    int ans = 0;
+    for (int i = 0; i < temp->children.size(); i++)
+    {
+        int childHeight = heightReturner(temp->children[i]);
+        if (childHeight > ans)
+        {
+            ans = childHeight;
+        }
+    }
+    return ans + 1;
+}
 
-    int arr[root->children.size()];
+// int heightReturner(treeNode<int> *root)
+// {
+//     int height = 1;
+//     if (root->children.size() == 0)
+//         return height;
+
+//     int arr[root->children.size()];
+//     for (int i = 0; i < root->children.size(); i++)
+//     {
+//         arr[i] = heightReturner(root->children[i]);
+//     }
+//     sort(arr, arr + root->children.size(), greater<int>());
+//     return height + arr[0];
+// }
+
+void valueAtK(treeNode<int> *root, int k)
+{
+    if (k == 0)
+    {
+        cout << root->data << " ";
+        return;
+    }
     for (int i = 0; i < root->children.size(); i++)
     {
-        arr[i] = heightReturner(root->children[i]);
+        valueAtK(root->children[i], k - 1);
     }
-    sort(arr,arr+root->children.size(),greater<int>());
-    return height + arr[0];
 }
 
 int main()
@@ -108,4 +140,5 @@ int main()
     // cout << "Sum of Nodes is: " << sumOfNode(root);
     // cout << "Largest of all Nodes is : " << printLargest(root);
     cout << "The Height of the tree is : " << heightReturner(root);
+    // valueAtK(root, 1); // prints all value at kth depth // 4 is the depth in this case
 }
