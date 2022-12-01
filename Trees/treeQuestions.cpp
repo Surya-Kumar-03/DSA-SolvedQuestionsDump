@@ -1,6 +1,5 @@
-#include <iostream>
+#include <bits/stdc++.h>
 #include "treeNode.h"
-#include <queue>
 
 using namespace std;
 
@@ -21,6 +20,7 @@ void printTree(treeNode<int> *root)
 treeNode<int> *takeInputLevelWise()
 {
     int rootData;
+    cout << "Enter Root Data: ";
     cin >> rootData;
     treeNode<int> *root = new treeNode<int>(rootData);
     queue<treeNode<int> *> pendingNodes;
@@ -30,10 +30,12 @@ treeNode<int> *takeInputLevelWise()
         treeNode<int> *front = pendingNodes.front();
         int no_of_children;
         pendingNodes.pop();
+        cout << "Enter the Number of Children of " << front->data << " : ";
         cin >> no_of_children;
         for (int i = 0; i < no_of_children; i++)
         {
             int childData;
+            cout << "Enter the data of " << i + 1 << " child of " << front->data << " : ";
             cin >> childData;
             treeNode<int> *child = new treeNode<int>(childData);
             front->children.push_back(child);
@@ -75,6 +77,21 @@ int printLargest(treeNode<int> *root)
     return largest;
 }
 
+int heightReturner(treeNode<int> *root)
+{
+    int height = 1;
+    if (root->children.size() == 0)
+        return height;
+
+    int arr[root->children.size()];
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        arr[i] = heightReturner(root->children[i]);
+    }
+    sort(arr,arr+root->children.size(),greater<int>());
+    return height + arr[0];
+}
+
 int main()
 {
     // treeNode<int>* root=new treeNode<int>(10);
@@ -89,5 +106,6 @@ int main()
     printTree(root);
     // cout << "Number of Nodes is : " << numberOfNode(root);
     // cout << "Sum of Nodes is: " << sumOfNode(root);
-    cout << "Largest of all Nodes is : " << printLargest(root);
+    // cout << "Largest of all Nodes is : " << printLargest(root);
+    cout << "The Height of the tree is : " << heightReturner(root);
 }
