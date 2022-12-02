@@ -12,4 +12,12 @@ public:
     {
         this->data = data;
     }
+
+    ~treeNode() // destructor
+    {
+        for (int i = 0; i < children.size(); i++)
+        {
+            delete children[i];
+        }
+    }
 };
