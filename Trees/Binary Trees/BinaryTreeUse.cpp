@@ -57,7 +57,7 @@ BinaryTreeNode<int> *takeInputLevelWise()
         cout << "Enter right child of " << front->data << ": ";
         int rightChildData;
         cin >> rightChildData;
-        if (rightChildData != -1) 
+        if (rightChildData != -1)
         {
             BinaryTreeNode<int> *right = new BinaryTreeNode<int>(rightChildData);
             front->right = right;
@@ -65,6 +65,13 @@ BinaryTreeNode<int> *takeInputLevelWise()
         }
     }
     return root;
+}
+
+int countNodes(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+        return 0;
+    return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
 int main()
@@ -78,6 +85,7 @@ int main()
     // BinaryTreeNode<int> *root = takeInput();
     BinaryTreeNode<int> *root = takeInputLevelWise(); // level wise
     printBinaryTree(root);
+    cout << "The number of Nodes are : " << countNodes(root);
     delete root;
     return 0;
 }
