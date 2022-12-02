@@ -124,6 +124,20 @@ void valueAtK(treeNode<int> *root, int k)
     }
 }
 
+int countLeafNodes(treeNode<int> *root)
+{
+    if (root == NULL)
+        return 0;
+    if (root->children.size() == 0)
+        return 1;
+    int ans = 0;
+    for (int i = 0; i < root->children.size(); i++)
+    {
+        ans += countLeafNodes(root->children[i]);
+    }
+    return ans;
+}
+
 int main()
 {
     // treeNode<int>* root=new treeNode<int>(10);
@@ -139,6 +153,7 @@ int main()
     // cout << "Number of Nodes is : " << numberOfNode(root);
     // cout << "Sum of Nodes is: " << sumOfNode(root);
     // cout << "Largest of all Nodes is : " << printLargest(root);
-    cout << "The Height of the tree is : " << heightReturner(root);
+    // cout << "The Height of the tree is : " << heightReturner(root);
     // valueAtK(root, 1); // prints all value at kth depth // 4 is the depth in this case
+    cout << "The Number of leafNodes are : " << countLeafNodes(root);
 }
