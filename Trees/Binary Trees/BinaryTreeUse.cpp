@@ -74,6 +74,16 @@ int countNodes(BinaryTreeNode<int> *root)
     return 1 + countNodes(root->left) + countNodes(root->right);
 }
 
+void inorderTraversal(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+        return;
+    inorderTraversal(root->left);
+    cout << root->data << " ";
+    inorderTraversal(root->right);
+}
+
+
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -85,7 +95,8 @@ int main()
     // BinaryTreeNode<int> *root = takeInput();
     BinaryTreeNode<int> *root = takeInputLevelWise(); // level wise
     printBinaryTree(root);
-    cout << "The number of Nodes are : " << countNodes(root);
+    // cout << "The number of Nodes are : " << countNodes(root);
+    inorderTraversal(root);
     delete root;
     return 0;
 }
