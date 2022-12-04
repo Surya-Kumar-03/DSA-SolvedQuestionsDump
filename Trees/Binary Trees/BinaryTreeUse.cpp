@@ -84,6 +84,29 @@ void inorderTraversal(BinaryTreeNode<int> *root)
 }
 
 
+void printBinaryTreeLevelWise(BinaryTreeNode<int> *root)
+{
+    if (root == NULL)
+        return;
+    queue<BinaryTreeNode<int> *> pending;
+    pending.push(root);
+    while (!pending.empty())
+    {
+        int size = pending.size();
+        for (int i = 0; i < size; i++)
+        {
+            BinaryTreeNode<int> *front = pending.front();
+            pending.pop();
+            if (front->left)
+                pending.push(front->left);
+            if (front->right)
+                pending.push(front->right);
+            cout << front->data << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     // BinaryTreeNode<int> *root = new BinaryTreeNode<int>(1);
@@ -94,9 +117,10 @@ int main()
     // root->right = right;
     // BinaryTreeNode<int> *root = takeInput();
     BinaryTreeNode<int> *root = takeInputLevelWise(); // level wise
-    printBinaryTree(root);
+    // printBinaryTree(root);
     // cout << "The number of Nodes are : " << countNodes(root);
-    inorderTraversal(root);
+    // inorderTraversal(root);
+    printBinaryTreeLevelWise(root);
     delete root;
     return 0;
 }
